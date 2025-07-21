@@ -1,51 +1,13 @@
 # Bytecode de Python
 __pycache__/
-*.py[cod]
-*$py.class
-
 # Entornos virtuales
-env/
-venv/
-ENV/
 .venv/
 
 # Archivos de configuración y entorno
 .env
-*.env
-.env.*
-
-# Archivos de log y bases de datos locales
-*.log
-*.sqlite3
-*.db
-
 # Archivos del sistema
 .DS_Store
 Thumbs.db
 
-# Archivos de test y cobertura
-coverage.xml
-*.cover
-.cache
-.pytest_cache/
-nosetests.xml
-
-# Archivos de Jupyter Notebook con outputs
-.ipynb_checkpoints
-
-# Directorios de dependencia
-node_modules/
-__pypackages__/
-
-# Distribuciones y empaquetado
-build/
-dist/
-*.egg-info/
-
 # VS Code
 .vscode/
-
-# Otros IDEs
-.idea/
-*.sublime-project
-*.sublime-workspace
