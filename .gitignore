@@ -5,6 +5,7 @@ __pycache__/
 
 # Archivos de configuración y entorno
 .env
+*.json
 # Archivos del sistema
 .DS_Store
 Thumbs.db
