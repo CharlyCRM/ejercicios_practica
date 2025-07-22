@@ -60,7 +60,7 @@ while True:
             print("La agenda está vacia")
 
 
-    if opcion == 2:
+    elif opcion == 2:
         limpiar_terminal()
         print(f"\n--- AÑADIR CONTACTO ---")
         
@@ -170,11 +170,38 @@ while True:
             except ValueError:
                 print("❌ Entrada inválida.")
 
-    if opcion == 8:
+    elif opcion == 6:
+        limpiar_terminal()
+        print(f"\n--- GUARDAR AGENDA EN ARCHIVO ---")
+
+        try:
+            with open("agenda.json", "w", encoding="utf8") as archivo:
+                json.dump(contactos, archivo, indent=4, ensure_ascii=False)
+                print(f"✅ Agenda guardada correctamente en 'agenda.json'")
+        except Exception as e:
+            print(f"❌ Error al guardar la agenda {e}")
+
+    elif opcion == 7:
+        limpiar_terminal()
+        print(f"\n--- CARGAR AGENDA DESDE ARCHIVO ---")
+        
+        try:
+            with open("agenda.json", "r", encoding="utf8") as archivo:
+                contactos = json.load(archivo)
+            print(f"✅ Agenda cargada correctamente desde 'agenda.json'")
+        except FileNotFoundError:
+            print(f"⚠️ No se encontró el archivo 'agenda.json'")
+        except json.JSONDecodeError:
+            print(f"❌ El archivo existe pero está dañado o vacio")
+        except Exception as e:
+            print(f"❌ Error al cargar el fichero {e}")
+
+    elif opcion == 8:
         limpiar_terminal()
         print(f"¡Gracias por usar nuestra aplicación! Hasta pronto. 😊")
         break
     
     else:
+        limpiar_terminal()
         print("❌ Opción no válida. Por favor, selecciona un número del 1 al 8")
 
