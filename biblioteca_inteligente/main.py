@@ -7,4 +7,4 @@ if __name__ == "__main__":
     libro1 = Libro("Programación Python", "Brian Jason", 34562, 2024, "Informática", True)
 
     # Creación de Usuario
-    usuario1 =
+    usuario1 = Usuario("Carlos", 002)
