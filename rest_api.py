@@ -25,6 +25,10 @@ usuarios = [
 def leer_root():
     return usuarios
 
+########################
+#   Endpoint GET       #
+#######################
+
 @app.get("/usuarios/{id}")
 def get_usuario(id: int) -> dict:
     "Devuelve los datos de un usuario"
@@ -37,12 +41,40 @@ def get_usuario(id: int) -> dict:
             }
     return {"error": "El ID indicado no existe"}
 
+########################
+#   Endpoint POST     #
+#######################
+
 @app.post("/usuarios")
 def crear_usuario(usuario: UsuarioEntrada):
     "Crea un nuevo usuario"
-    usuarios.append(usuario.model_dump())
-    return {"mensaje": "✅ Usuario creado correctamente", "usuario": usuario.model_dump()}
+    for u in usuarios:
+        if u["id"] == usuario.id:
+            return {
+                "error": f"❌ El usuario con ID {usuario.id} ya existe: {u['nombre']}"
+            }
 
+    usuarios.append(usuario.model_dump())
+    return {
+        "mensaje": "✅ Usuario creado correctamente",
+        "usuario": usuario.model_dump()
+    }
+
+########################
+#   Endpoint PUT       #
+#######################
+
+@app.put("/usuarios/{id}")
+def actualizar_usuario(id: int, usuario_actualizado: UsuarioEntrada):
+    "Actualiza completamente los datos de un usuario existente"
+    for index, usuario in enumerate(usuarios):
+        if usuario["id"] == id:
+            usuarios[index] = usuario_actualizado.model_dump()
+            return {
+                "mensaje": f"🔄 Usuario {id} actualizado correctamente",
+                "usuario": usuarios[index]
+            }
+    return {"error": f"❌ No se encontró un usuario con ID {id}"}
 
 
 # Ejecución
@@ -58,3 +90,8 @@ def crear_usuario(usuario: UsuarioEntrada):
 # ipconfig getifaddr en0
 # Laznar el servidor
 # curl http://192.168.1.42:8000/
+
+# Ejemplo de POST o PUT
+# curl -X POST http://127.0.0.1:8000/usuarios/2 \
+#      -H "Content-Type: application/json" \
+#      -d '{"id": 2, "nombre": "Daniela", "email": "daniela_nueva@mail.com"}'
