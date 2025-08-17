@@ -62,7 +62,7 @@ def crear_usuario(usuario: UsuarioEntrada):
 
 ########################
 #   Endpoint PUT       #
-#######################
+########################
 
 @app.put("/usuarios/{id}")
 def actualizar_usuario(id: int, usuario_actualizado: UsuarioEntrada):
@@ -75,6 +75,19 @@ def actualizar_usuario(id: int, usuario_actualizado: UsuarioEntrada):
                 "usuario": usuarios[index]
             }
     return {"error": f"❌ No se encontró un usuario con ID {id}"}
+
+########################
+#   Endpoint DELETE    #
+########################
+
+@app.delete("/usuarios/{id}")
+def eliminar_usuario(id: int):
+    "Elimina un usuario por su ID"
+    for i, usuario in enumerate(usuarios):
+        if usuario["id"] == id:
+            usuarios.pop(i)
+            return {"mensaje": f"🗑️ Usuario con ID {id} eliminado correctamente"}
+    return {"error": f"❌ No existe ningún usuario con ID {id}"}
 
 
 # Ejecución
