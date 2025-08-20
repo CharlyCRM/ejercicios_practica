@@ -1,10 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks
 from pydantic import BaseModel
+
+import asyncio
 
 class UsuarioEntrada(BaseModel):
     id: int
     nombre: str
     email: str
+
+# Modelo para entrada numérica en endpoints asíncronos
+class NumeroEntrada(BaseModel):
+    numero: int
+    incremento: int = 1
 
 app = FastAPI()
 
@@ -26,6 +33,19 @@ def leer_root():
     return usuarios
 
 ########################
+#   Endpoint POST ASYNC #
+########################
+
+@app.post("/calcular/suma")
+async def calcular_suma(payload: NumeroEntrada) -> dict:
+    """Devuelve numero + incremento (ejemplo de handler asíncrono).
+    Simulamos I/O con asyncio.sleep para ilustrar el uso de `await`.
+    """
+    await asyncio.sleep(0)  # simula una espera no bloqueante
+    resultado = payload.numero + payload.incremento
+    return {"resultado": resultado}
+
+########################
 #   Endpoint GET       #
 #######################
 
@@ -40,6 +60,18 @@ def get_usuario(id: int) -> dict:
                 "email": usuario["email"]
             }
     return {"error": "El ID indicado no existe"}
+
+    # --- Ejemplo con trabajo en segundo plano (no bloqueante) ---
+def guardar_log_suma(n: int, inc: int, res: int) -> None:
+    # En un proyecto real, aquí podrías escribir en un fichero, BD, etc.
+    print(f"[LOG] Suma recibida: {n} + {inc} = {res}")
+
+@app.post("/calcular/suma_bg")
+async def calcular_suma_background(payload: NumeroEntrada, background_tasks: BackgroundTasks) -> dict:
+    """Calcula la suma y delega el registro en background."""
+    resultado = payload.numero + payload.incremento
+    background_tasks.add_task(guardar_log_suma, payload.numero, payload.incremento, resultado)
+    return {"resultado": resultado, "info": "Registro en background programado"}
 
 ########################
 #   Endpoint POST     #
@@ -108,3 +140,12 @@ def eliminar_usuario(id: int):
 # curl -X POST http://127.0.0.1:8000/usuarios/2 \
 #      -H "Content-Type: application/json" \
 #      -d '{"id": 2, "nombre": "Daniela", "email": "daniela_nueva@mail.com"}'
+
+# Ejemplos ASYNC
+# curl -X POST http://127.0.0.1:8000/calcular/suma \
+#      -H "Content-Type: application/json" \
+#      -d '{"numero": 7, "incremento": 5}'
+#
+# curl -X POST http://127.0.0.1:8000/calcular/suma_bg \
+#      -H "Content-Type: application/json" \
+#      -d '{"numero": 10, "incremento": 2}'
