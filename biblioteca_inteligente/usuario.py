@@ -14,8 +14,8 @@ class Usuario:
         self.libros_prestados = libros_prestados
         self.historial_prestamos = historial_prestamos
 
-    def prestar_libro(self, libro:Libro):
-        "Verifica si el libro está disponible y si es así le cambia el estado"
+    def prestar_libro(self, libro:Libro) -> None:
+        """Verifica si el libro está disponible y si es así le cambia el estado"""
         if libro.disponible:
             libro.disponible = False
             self.libros_prestados.append(libro)
@@ -24,8 +24,8 @@ class Usuario:
         else:
             print(f"❌ El libro {libro.titulo} no está disponible para prestamos")
 
-    def devolver_libro(self, libro:Libro):
-        "Confirma si el libro a sido prestado, y si es así, lo devuelve"
+    def devolver_libro(self, libro:Libro) -> None:
+        """Confirma si el libro a sido prestado, y si es así, lo devuelve"""
         if libro not in self.libros_prestados:
             print(f"⚠️ Este libro no ha sido prestado por ti")
             return
@@ -34,8 +34,8 @@ class Usuario:
             libro.disponible = True
             print(f"📙 {libro.titulo} ha sido devuelto correctamente")
 
-    def mostrar_historial(self):
-        "Muestra el historial de libros pestados"
+    def mostrar_historial(self) -> None:
+        """Muestra el historial de libros pestados"""
         if len(self.historial_prestamos) <=0:
             print(f"🕵️ El usuario todavía no ha prestado ningún libro.")
         else:
@@ -49,7 +49,4 @@ class Usuario:
                 print(f"Disponibilidad: {libro.disponible}\n")
 
     def bloquear_prestar(self, libro:Libro) -> None:
-        DIAS_PRESTAMO_MAXIMO = 60
-        dias_prestado = datetime.today - DIAS_PRESTAMO_MAXIMO
-
-        if libro. > dias_prestado:
+        pass
