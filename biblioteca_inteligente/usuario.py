@@ -7,14 +7,21 @@ from libro import Libro
 from typing import List
 from datetime import datetime
 
+
 class Usuario:
-    def __init__(self, nombre:str, id:int, libros_prestados:List = None, historial_prestamos:List = None):
+    def __init__(
+        self,
+        nombre: str,
+        id: int,
+        libros_prestados: List[Libro] | None = None,
+        historial_prestamos: List[Libro] | None = None,
+    ):
         self.nombre = nombre
         self.id = id
-        self.libros_prestados = libros_prestados
-        self.historial_prestamos = historial_prestamos
+        self.libros_prestados: List[Libro] = libros_prestados if libros_prestados is not None else []
+        self.historial_prestamos: List[Libro] = historial_prestamos if historial_prestamos is not None else []
 
-    def prestar_libro(self, libro:Libro) -> None:
+    def prestar_libro(self, libro: Libro) -> None:
         """Verifica si el libro está disponible y si es así le cambia el estado"""
         if libro.disponible:
             libro.disponible = False
@@ -24,7 +31,7 @@ class Usuario:
         else:
             print(f"❌ El libro {libro.titulo} no está disponible para prestamos")
 
-    def devolver_libro(self, libro:Libro) -> None:
+    def devolver_libro(self, libro: Libro) -> None:
         """Confirma si el libro a sido prestado, y si es así, lo devuelve"""
         if libro not in self.libros_prestados:
             print(f"⚠️ Este libro no ha sido prestado por ti")
@@ -36,7 +43,7 @@ class Usuario:
 
     def mostrar_historial(self) -> None:
         """Muestra el historial de libros pestados"""
-        if len(self.historial_prestamos) <=0:
+        if len(self.historial_prestamos) <= 0:
             print(f"🕵️ El usuario todavía no ha prestado ningún libro.")
         else:
             print(f"\n--- HISTORIAL PRÉSTAMOS DE {self.nombre} ---")
@@ -48,5 +55,5 @@ class Usuario:
                 print(f"Género: {libro.genero}")
                 print(f"Disponibilidad: {libro.disponible}\n")
 
-    def bloquear_prestar(self, libro:Libro) -> None:
+    def bloquear_prestar(self, libro: Libro) -> None:
         pass
