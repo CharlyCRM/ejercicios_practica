@@ -18,8 +18,12 @@ class Usuario:
     ):
         self.nombre = nombre
         self.id = id
-        self.libros_prestados: List[Libro] = libros_prestados if libros_prestados is not None else []
-        self.historial_prestamos: List[Libro] = historial_prestamos if historial_prestamos is not None else []
+        self.libros_prestados: List[Libro] = (
+            libros_prestados if libros_prestados is not None else []
+        )
+        self.historial_prestamos: List[Libro] = (
+            historial_prestamos if historial_prestamos is not None else []
+        )
 
     def prestar_libro(self, libro: Libro) -> None:
         """Verifica si el libro está disponible y si es así le cambia el estado"""
