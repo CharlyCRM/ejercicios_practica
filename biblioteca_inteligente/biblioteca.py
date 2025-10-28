@@ -37,7 +37,7 @@ class Biblioteca:
 
     def buscar_libro_por_titulo(self, titulo: str) -> List[Libro]:
         """Devuelve una lista de libros cuyo título contiene el texto dado (búsqueda case-insensitive)."""
-        if not titulo:
+        if not titulo: # comprueba si el usuario pasa un str vacio
             return []
         texto = titulo.lower()
         return [l for l in self.catalogo_libros if texto in l.titulo.lower()]

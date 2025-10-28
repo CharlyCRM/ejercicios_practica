@@ -22,11 +22,11 @@ class Libro:
 
     def __str__(self):
         return (
-            f"Título: {self.titulo}"
-            f"Autor: {self.autor}"
-            f"ISBN: {self.isbn}"
-            f"Año: {self.año}"
-            f"Género: {self.genero}"
+            f"Título: {self.titulo}\n"
+            f"Autor: {self.autor}\n"
+            f"ISBN: {self.isbn}\n"
+            f"Año: {self.año}\n"
+            f"Género: {self.genero}\n"
             f"Disponibilidad: {self.disponible}\n"
     )
 
