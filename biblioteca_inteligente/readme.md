@@ -1,51 +1,15 @@
- # Proyecto: Sistema de Gestión de una Biblioteca Inteligente
+# Biblioteca — ejercicio de orientación a objetos
 
-### 🎯 Objetivo:
+El objetivo era representar libros, usuarios y una biblioteca para practicar entidades, préstamos y búsquedas.
 
-Simular el funcionamiento de una biblioteca moderna que incluye préstamos, devoluciones, gestión de usuarios, seguimiento de historial y catálogo. La idea es que cada entidad sea compleja y tenga sus propios métodos bien definidos.
+## Estado actual
 
----
+Hay clases en `libro.py`, `usuario.py` y `biblioteca.py`, y un `main.py` inicial. No es una simulación completa con persistencia e historial validado. La entrada conserva el literal `002`, que Python 3 no acepta como entero: no arranca tal como está.
 
-### 🧱 Estructura modular del proyecto:
+Puedes revisar las clases para seguir el planteamiento. El menú y los flujos completos de préstamo y devolución no deben darse por implementados.
 
-1. libro.py
+## Qué se pretendía practicar
 
-Clase Libro
-	•	Atributos: título, autor, ISBN, año, género, disponible (bool).
-	•	Métodos:
-	•	marcar_como_prestado()
-	•	marcar_como_disponible()
-	•	__str__() para mostrar la información.
-	•	(Opcional) método para comprobar si es “nuevo” (menos de 2 años) o “antiguo”.
+Separar el estado del libro, las operaciones del usuario y la coordinación del catálogo. Limitar préstamos y buscar libros formaban parte del diseño, pero cada capacidad debe contrastarse con el código existente.
 
----
-
-2. usuario.py
-
-Clase Usuario
-	•	Atributos: nombre, ID, lista de libros prestados (máximo 3), historial de préstamos.
-	•	Métodos:
-	•	prestar_libro(libro: Libro)
-	•	devolver_libro(libro: Libro)
-	•	mostrar_historial()
-	•	(Opcional) bloqueo si tiene libros sin devolver en más de X días.
-
----
-
-3. biblioteca.py
-
-Clase Biblioteca
-	•	Atributos: catálogo de libros (lista), usuarios registrados.
-	•	Métodos:
-	•	agregar_libro()
-	•	registrar_usuario()
-	•	buscar_libro_por_titulo(), buscar_por_autor()
-	•	prestar_libro_a_usuario(usuario_id, isbn)
-	•	devolver_libro_de_usuario(usuario_id, isbn)
-	•	mostrar_catalogo(), mostrar_libros_disponibles()
-
----
-
-4. main.py
-	•	Interfaz del sistema (modo texto simple).
-	•	Simulación de flujos: registro, búsqueda, préstamo, devolución, estado del catálogo.
+Mantengo esta carpeta como borrador de aprendizaje. La revisión no completa el ejercicio ni altera sus fuentes.
